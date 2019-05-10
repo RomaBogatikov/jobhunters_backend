@@ -7,6 +7,9 @@ const app = express()
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
 
+const jobsController = require('./controllers/jobs')
+app.use('/jobs', jobsController)
+
 // Error / Disconnection
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
 mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
