@@ -17,10 +17,6 @@ mongoose.connection.once('open', () => {
   console.log('connected to mongoose...')
 })
 
-//CONTROLLER_ROUTES
-const jobsController = require ('./controllers/jobs.js')
-app.use('/jobs', jobsController)
-
 // INDEX ROUTE
 app.get('/', (req, res) => {
    res.send('Hello World')
