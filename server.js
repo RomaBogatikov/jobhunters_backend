@@ -17,6 +17,8 @@ mongoose.connection.once('open', () => {
   console.log('connected to mongoose...')
 })
 
+
+
 // INDEX ROUTE
 app.get('/', (req, res) => {
    res.send('Hello World')
