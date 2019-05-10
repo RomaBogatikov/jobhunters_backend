@@ -6,6 +6,9 @@ const PORT = 3003
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
 
+const jobsController = require('./controllers/jobs')
+app.use('/jobs', jobsController)
+
 //Routes
 // Index Route
 app.get('/', (req, res) => {
