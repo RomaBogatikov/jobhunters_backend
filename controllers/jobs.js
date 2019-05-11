@@ -13,7 +13,7 @@ jobs.get('/', (req, res) => {
 })
 
 
-// CREATE ROUTE
+// CREATE ROUTE - TESTED AND CONFIRMING CREATE ROUTE WORKS (DEVIN)
 jobs.post('/', (req, res) => {
     // res.send('create route hit!')
     Job.create(req.body, (error, createdJob) => {
@@ -26,7 +26,7 @@ jobs.post('/', (req, res) => {
     })
 })
 
-// destroy route (DELETE)
+// destroy route (DELETE) - TESTED AND CONFIRMING EDIT ROUTE WORKS (DEVIN)
 jobs.delete('/:id', (req, res) => {
     Job.findByIdAndRemove(req.params.id, (err, deletedJob) => {
         if (err) {
@@ -37,7 +37,7 @@ jobs.delete('/:id', (req, res) => {
     })
 })
 
-// update route (PUT)
+// update route (PUT) - TESTED AND CONFIRMING UPDATE ROUTE WORKS (DEVIN)
 jobs.put('/:id', (req, res) => {
     Job.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedJob) => {
         if (err) {
