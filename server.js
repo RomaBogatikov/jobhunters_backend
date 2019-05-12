@@ -1,4 +1,4 @@
-// const cors = require('cors')
+const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const PORT = 3003
@@ -7,6 +7,8 @@ const Job = require('./models/jobs.js')
 
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
+
+app.use(cors());
 
 const jobsController = require('./controllers/jobs')
 app.use('/jobs', jobsController)
