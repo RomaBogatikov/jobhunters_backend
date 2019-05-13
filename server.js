@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const PORT = 3003
 const app = express()
 const Job = require('./models/jobs.js')
+const session = require('express-session');
 
 
 //Middleware
@@ -23,6 +24,11 @@ app.use('/jobs', jobsController)
 const userController = require('./controllers/users.js')
 
 app.use('/users', userController)
+
+//ADDING THE SESSIONS CONTROLLER 
+const sessionsController = require('./controllers/sessions.js');
+
+app.use('/sessions', sessionsController);
 
 // Error / Disconnection
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
