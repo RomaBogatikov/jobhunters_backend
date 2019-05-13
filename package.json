@@ -1,0 +1,25 @@
+{
+  "name": "job-tracker_api",
+  "version": "1.0.0",
+  "description": "Express backend for job-tracker project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dkothand/job-tracker_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dkothand/job-tracker_api/issues"
+  },
+  "homepage": "https://github.com/Dkothand/job-tracker_api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.7"
+  }
+}
