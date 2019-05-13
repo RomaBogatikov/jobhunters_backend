@@ -16,6 +16,7 @@ jobs.get('/', (req, res) => {
 // CREATE ROUTE - TESTED AND CONFIRMING CREATE ROUTE WORKS (DEVIN)
 jobs.post('/', (req, res) => {
     // res.send('create route hit!')
+    console.log('req is', req.body)
     Job.create(req.body, (error, createdJob) => {
         if (error) {
           res.status(400).json({ error: error.message });

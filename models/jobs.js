@@ -6,7 +6,8 @@ const jobsSchema = mongoose.Schema({
   job_description: {type: String, required: true},
   salary_range_from: {type: String},
   salary_range_to: {type: String},
-  work_location: {type: String}
+  work_location: {type: String},
+  url: {type: String}
 })
 
 
