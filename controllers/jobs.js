@@ -1,5 +1,6 @@
 const express = require('express')
 const jobs = express.Router()
+const User = require('../models/users')
 const Job = require('../models/jobs')
 const mongoose = require('mongoose')
 
@@ -29,7 +30,19 @@ jobs.post('/', (req, res) => {
           res.status(400).json({ error: error.message });
         } else {
           console.log('createdJob=', createdJob);
-          res.status(200).send(createdJob)
+          // need to push createdJob ._id to the logged in User's job array
+          // find user by id
+          User.findByIdAndUpdate(
+              req.session.currentUser._id,
+              {
+                  $push: {jobs: createdJob._id}
+              },
+              {new: true},
+              (err, updatedUser) => {
+                  console.log(updatedUser)
+                  res.status(200).send(createdJob)
+              }
+            )
         }
     })
 })
