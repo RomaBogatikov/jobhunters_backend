@@ -1,10 +1,17 @@
 const express = require('express')
 const jobs = express.Router()
 const Job = require('../models/jobs')
+const mongoose = require('mongoose')
 
 // INDEX ROUTE
 jobs.get('/', (req, res) => {
-    Job.find({}, (err, foundJobs) => {
+    const userJobs = req.session.currentUser.jobs
+    const jobsIds = userJobs.map(job => {
+        return mongoose.Types.ObjectId(job)
+    })
+    Job.find({
+        '_id': {$in: {jobsIds}}
+    }, (err, foundJobs) => {
         if (err) {
             res.status(400).send({error: err.message})
         }
