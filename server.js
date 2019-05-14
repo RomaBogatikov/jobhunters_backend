@@ -23,17 +23,20 @@ mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 //Middleware
 // ADDED CORS MIDDLEWARE
 const whitelist = ['http://localhost:3003', 'https://enigmatic-beach-40420.herokuapp.com']
+
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
+  origin: whitelist
+  // origin: function (origin, callback) {
+  //   if (whitelist.indexOf(origin) !== -1) {
+  //       const index = whitelist.indexOf(origin)
+  //       return whitelist[index]
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'))
+  //   }
+  // }
 }
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 app.use(express.json()); //use .json(), not .urlencoded()
 
@@ -60,7 +63,8 @@ app.use('/sessions', sessionsController);
 
 
 // INDEX ROUTE
-app.get('/', (req, res) => {
+app.get('/', cors(corsOptions), (req, res) => {
+  console.log(req.headers)
    res.send('Hello World')
   })
 
