@@ -30,15 +30,16 @@ const sessionsController = require('./controllers/sessions.js');
 
 app.use('/sessions', sessionsController);
 
-// Error / Disconnection
-mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
-mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
-
 // Database connection
 mongoose.connect('mongodb://localhost:27017/jobs', { useNewUrlParser: true })
 mongoose.connection.once('open', () => {
   console.log('connected to mongoose...')
 })
+
+// Error / Disconnection
+mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
+mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
+
 
 
 
