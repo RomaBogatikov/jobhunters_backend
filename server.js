@@ -9,7 +9,9 @@ const session = require('express-session');
 
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/jobs', { useNewUrlParser: true })
+const MONGODB_URI = process.env.MONGODB_URI ||'mongodb://localhost:27017/jobs'
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
 mongoose.connection.once('open', () => {
   console.log('connected to mongoose...')
 })
