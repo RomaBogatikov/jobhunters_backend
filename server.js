@@ -22,21 +22,22 @@ mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
 //Middleware
 // ADDED CORS MIDDLEWARE
-const whitelist = ['http://localhost:3003', 'https://enigmatic-beach-40420.herokuapp.com']
+// Doesn't work, sticking with cors()
+// const whitelist = ['http://localhost:3003', 'https://enigmatic-beach-40420.herokuapp.com']
 
-const corsOptions = {
-  origin: whitelist
-  // origin: function (origin, callback) {
-  //   if (whitelist.indexOf(origin) !== -1) {
-  //       const index = whitelist.indexOf(origin)
-  //       return whitelist[index]
-  //   } else {
-  //     callback(new Error('Not allowed by CORS'))
-  //   }
-  // }
-}
+// const corsOptions = {
+//   origin: whitelist
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//         const index = whitelist.indexOf(origin)
+//         return whitelist[index]
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
-// app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(express.json()); //use .json(), not .urlencoded()
 
@@ -63,7 +64,7 @@ app.use('/sessions', sessionsController);
 
 
 // INDEX ROUTE
-app.get('/', cors(corsOptions), (req, res) => {
+app.get('/', (req, res) => {
   console.log(req.headers)
    res.send('Hello World')
   })
