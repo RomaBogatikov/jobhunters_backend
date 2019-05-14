@@ -2,7 +2,7 @@
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
-const PORT = 3003
+const PORT = process.env.PORT || 3003
 const app = express()
 const Job = require('./models/jobs.js')
 const session = require('express-session');
@@ -11,9 +11,18 @@ const session = require('express-session');
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
 // ADDED CORS MIDDLEWARE
-app.use(cors())
-// ADDED IN THE BODY PARSER MIDDLEWARE
-// app.use(express.urlencoded({extended:false}));
+const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+app.use(cors(corsOptions))
 
 
 
@@ -30,15 +39,16 @@ const sessionsController = require('./controllers/sessions.js');
 
 app.use('/sessions', sessionsController);
 
-// Error / Disconnection
-mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
-mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
-
 // Database connection
 mongoose.connect('mongodb://localhost:27017/jobs', { useNewUrlParser: true })
 mongoose.connection.once('open', () => {
   console.log('connected to mongoose...')
 })
+
+// Error / Disconnection
+mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
+mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
+
 
 
 
