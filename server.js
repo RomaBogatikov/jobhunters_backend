@@ -9,7 +9,6 @@ const session = require('express-session');
 
 
 //Middleware
-app.use(express.json()); //use .json(), not .urlencoded()
 // ADDED CORS MIDDLEWARE
 const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com', 'https://enigmatic-beach-40420.herokuapp.com/jobs']
 const corsOptions = {
@@ -24,17 +23,18 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
+app.use(express.json()); //use .json(), not .urlencoded()
 
 
 const jobsController = require('./controllers/jobs')
 app.use('/jobs', jobsController)
 
-//ADDING THE USER CONTROLLER 
+//ADDING THE USER CONTROLLER
 const userController = require('./controllers/users.js')
 
 app.use('/users', userController)
 
-//ADDING THE SESSIONS CONTROLLER 
+//ADDING THE SESSIONS CONTROLLER
 const sessionsController = require('./controllers/sessions.js');
 
 app.use('/sessions', sessionsController);
