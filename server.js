@@ -2,7 +2,7 @@
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
-const PORT = 3003
+const PORT = process.env.PORT || 3003
 const app = express()
 const Job = require('./models/jobs.js')
 const session = require('express-session');
