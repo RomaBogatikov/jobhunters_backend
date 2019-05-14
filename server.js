@@ -29,12 +29,12 @@ app.use(express.json()); //use .json(), not .urlencoded()
 const jobsController = require('./controllers/jobs')
 app.use('/jobs', jobsController)
 
-//ADDING THE USER CONTROLLER 
+//ADDING THE USER CONTROLLER
 const userController = require('./controllers/users.js')
 
 app.use('/users', userController)
 
-//ADDING THE SESSIONS CONTROLLER 
+//ADDING THE SESSIONS CONTROLLER
 const sessionsController = require('./controllers/sessions.js');
 
 app.use('/sessions', sessionsController);
