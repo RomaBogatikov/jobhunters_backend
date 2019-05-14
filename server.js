@@ -1,6 +1,6 @@
 
-const cors = require('cors')
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3003
 const app = express()
@@ -20,7 +20,7 @@ mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
 //Middleware
 // ADDED CORS MIDDLEWARE
-const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com', 'https://enigmatic-beach-40420.herokuapp.com/jobs']
+const whitelist = ['http://localhost:3003', 'https://enigmatic-beach-40420.herokuapp.com']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -55,7 +55,7 @@ app.use('/sessions', sessionsController);
 
 
 // INDEX ROUTE
-app.get('/', (req, res) => {
+app.get('/', cors(), (req, res) => {
    res.send('Hello World')
   })
 
