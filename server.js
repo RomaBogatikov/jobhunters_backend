@@ -8,6 +8,16 @@ const Job = require('./models/jobs.js')
 const session = require('express-session');
 
 
+// Database connection
+mongoose.connect('mongodb://localhost:27017/jobs', { useNewUrlParser: true })
+mongoose.connection.once('open', () => {
+  console.log('connected to mongoose...')
+})
+
+// Error / Disconnection
+mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
+mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
+
 //Middleware
 // ADDED CORS MIDDLEWARE
 const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com', 'https://enigmatic-beach-40420.herokuapp.com/jobs']
@@ -39,15 +49,7 @@ const sessionsController = require('./controllers/sessions.js');
 
 app.use('/sessions', sessionsController);
 
-// Database connection
-mongoose.connect('mongodb://localhost:27017/jobs', { useNewUrlParser: true })
-mongoose.connection.once('open', () => {
-  console.log('connected to mongoose...')
-})
 
-// Error / Disconnection
-mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
-mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
 
 
