@@ -11,7 +11,7 @@ const session = require('express-session');
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
 // ADDED CORS MIDDLEWARE
-const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com']
+const whitelist = ['http://localhost:3000', 'https://enigmatic-beach-40420.herokuapp.com', 'https://enigmatic-beach-40420.herokuapp.com/jobs']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
