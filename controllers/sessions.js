@@ -3,11 +3,11 @@ const express = require('express');
 const sessions = express.Router();
 const User = require('../models/users.js')
 
-
+// post route (to log in)
 sessions.post('/', (req, res) => {
     User.findOne({ username: req.body.username }, (err, foundUser) => {
         if (err) {
-            res.status(500).send('uinternal error')
+            res.status(500).send('internal error')
         }
         if (!foundUser) {
             res.status(401).send('wrong username or password!')
@@ -17,9 +17,18 @@ sessions.post('/', (req, res) => {
         } else {
             res.status(401).send('wrong username or password!')
         }
-});
+    });
 });
 
+// destroy route (to log out)
+sessions.delete('/delete', (req, res)=>{
+    console.log('logout clicked');
+    req.session.destroy(() => {
+        // res.redirect('/travel')
+        res.status(200).send('logged out');
+        console.log('logged out');
+    })
+})
 
 
 module.exports = sessions;
