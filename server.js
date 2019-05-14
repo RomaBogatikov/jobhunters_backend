@@ -33,7 +33,7 @@ const corsOptions = {
   }
 }
 
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(express.json()); //use .json(), not .urlencoded()
 
@@ -57,7 +57,7 @@ app.use('/sessions', sessionsController);
 
 
 // INDEX ROUTE
-app.get('/', cors(), (req, res) => {
+app.get('/', (req, res) => {
    res.send('Hello World')
   })
 
