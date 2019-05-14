@@ -1,17 +1,34 @@
+
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const PORT = 3003
 const app = express()
 const Job = require('./models/jobs.js')
+const session = require('express-session');
+
 
 //Middleware
 app.use(express.json()); //use .json(), not .urlencoded()
+// ADDED CORS MIDDLEWARE
+app.use(cors())
+// ADDED IN THE BODY PARSER MIDDLEWARE
+// app.use(express.urlencoded({extended:false}));
 
-app.use(cors());
+
 
 const jobsController = require('./controllers/jobs')
 app.use('/jobs', jobsController)
+
+//ADDING THE USER CONTROLLER 
+const userController = require('./controllers/users.js')
+
+app.use('/users', userController)
+
+//ADDING THE SESSIONS CONTROLLER 
+const sessionsController = require('./controllers/sessions.js');
+
+app.use('/sessions', sessionsController);
 
 // Error / Disconnection
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
