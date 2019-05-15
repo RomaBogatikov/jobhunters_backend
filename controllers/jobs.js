@@ -5,24 +5,32 @@ const Job = require('../models/jobs')
 const mongoose = require('mongoose')
 
 // INDEX ROUTE
-jobs.get('/', (req, res) => {
-    const userJobs = req.session.currentUser.jobs
-    const jobsIds = userJobs.map(job => {
-        return mongoose.Types.ObjectId(job)
-    })
-    Job.find({
-        '_id': {$in: {jobsIds}}
-    }, (err, foundJobs) => {
+jobs.post('/', (req, res) => {
+    User.findOne({
+        username: req.body.username
+    }, (err, foundUser) => {
         if (err) {
             res.status(400).send({error: err.message})
         }
-        res.status(200).send(foundJobs)
+        // convert jobs ids from stings to document ids
+        const jobsIds = foundUser.jobs.map(job => {
+            return mongoose.Types.ObjectId(job)
+        })
+        // get jobs that are in user jobs array
+        Job.find({
+            '_id': {$in: {jobsIds}}
+        }, (err, foundJobs) => {
+            if (err) {
+                res.status(400).send({error: err.message})
+            }
+            res.status(200).send(foundJobs)
+        })
     })
 })
 
 
 // CREATE ROUTE - TESTED AND CONFIRMING CREATE ROUTE WORKS (DEVIN)
-jobs.post('/', (req, res) => {
+jobs.post('/create', (req, res) => {
     // res.send('create route hit!')
     console.log('req is', req.body)
     // console.log('req session is', req.session)
@@ -56,7 +64,18 @@ jobs.delete('/:id', (req, res) => {
         if (err) {
         res.status(400).json({ error: err.message });
         } else {
-        res.status(200).json(deletedJob);
+            User.findOneAndUpdate(
+                {username: req.body.username},
+                {
+                    $pull: {jobs: deletedJob._id}
+                },
+                {new: true},
+                (err, updatedUser) => {
+                    console.log(updatedUser)
+                    res.status(200).send(deletedJob)
+                }
+            )
+        // res.status(200).json(deletedJob);
         }
     })
 })
