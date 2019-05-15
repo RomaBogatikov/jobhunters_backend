@@ -25,23 +25,26 @@ jobs.get('/', (req, res) => {
 jobs.post('/', (req, res) => {
     // res.send('create route hit!')
     console.log('req is', req.body)
+    // console.log('req session is', req.session)
+    const user = req.body.username
+    console.log('user is', user)
+    delete req.body.username
+    console.log('new req.body is', req.body)
     Job.create(req.body, (error, createdJob) => {
         if (error) {
           res.status(400).json({ error: error.message });
         } else {
           console.log('createdJob=', createdJob);
-          // need to push createdJob ._id to the logged in User's job array
-          // find user by id
-          User.findByIdAndUpdate(
-              req.session.currentUser._id,
-              {
-                  $push: {jobs: createdJob._id}
-              },
-              {new: true},
-              (err, updatedUser) => {
-                  console.log(updatedUser)
-                  res.status(200).send(createdJob)
-              }
+          User.findOneAndUpdate(
+            {username: user},
+            {
+                $push: {jobs: createdJob._id}
+            },
+            {new: true},
+            (err, updatedUser) => {
+                console.log(updatedUser)
+                res.status(200).send(createdJob)
+            }
             )
         }
     })
