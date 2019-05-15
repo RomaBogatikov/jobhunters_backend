@@ -18,7 +18,7 @@ jobs.post('/', (req, res) => {
         })
         // get jobs that are in user jobs array
         Job.find({
-            '_id': {$in: {jobsIds}}
+            '_id': {$in: jobsIds}
         }, (err, foundJobs) => {
             if (err) {
                 res.status(400).send({error: err.message})
