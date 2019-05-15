@@ -25,8 +25,10 @@ user.post('/', async (req, res) =>{
       // if there is a match, that user signed up before
       console.log('You signed up before. Go to Log In.');
       // res.send('<a href="/travel">You signed up before. Go to Log In</a>')
+      res.status(500).send('You signed up before. Go to Log In.')
     } else if (foundUsers.length > 0) {
       console.log('User with such a username already exists. Pick a different username')
+      res.status(500).send('User with such a username already exists. Pick a different username')
     } else {
       // the user is new, create a new user and log in automatically
       req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
