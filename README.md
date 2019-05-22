@@ -31,3 +31,5 @@
 </li>
 <li>User authentication is not enabled through express-sessions. We were not able to store the user session through this method despite having success in past projects of a similar stack. With more time, we could debug and create a better solution to store user session via Express resulting in a smoother implementation of user authorization.
 </li>
+
+<p>PS. JobHunters was a group project (group of 3) where I worked mostly on user login/signup and backend routes</p>
