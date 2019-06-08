@@ -7,6 +7,8 @@ const app = express()
 const Job = require('./models/jobs.js')
 const session = require('express-session');
 
+// require dotenv
+require('dotenv').config();
 
 // Database connection
 const MONGODB_URI = process.env.MONGODB_URI ||'mongodb://localhost:27017/jobs'
@@ -20,8 +22,12 @@ mongoose.connection.once('open', () => {
 mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not running?'))
 mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
 // Middleware
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json()); //use .json(), not .urlencoded()
 app.use(session({
   secret: 'keyboard cat',
