@@ -2,7 +2,7 @@
 Link to app: [JobHunters](https://jobs-hunter.herokuapp.com/)
 
 ## Job Hunters Back-End Overview
-Link to [Front-End Overview](https://github.com/RomanBogatikov/jobhunters_frontend)
+Link to [Front-End Overview](https://github.com/RomanBogatikov/jobhunters_frontend/tree/master)
 
 Job Hunters removes the friction of having to visit multiple job platforms or search your inbox to find your dream job!
 
