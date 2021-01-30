@@ -23,7 +23,7 @@ mongoose.connection.on('error', err => console.log(err.message + ' is Mongod not
 mongoose.connection.on('disconnected', () => console.log('mongo disconnected'))
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://jobs-hunter.herokuapp.com/',
   credentials: true,
 }
 // Middleware
